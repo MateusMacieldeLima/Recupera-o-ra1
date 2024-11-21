@@ -2,9 +2,9 @@ package Recuperação.Ra1;
 
 // Classe Node: Representa um nó da lista duplamente encadeada
 class Node {
-    String address; // Endereço da página
-    Node prev; // Referência para o nó anterior
-    Node next; // Referência para o próximo nó
+    String address;
+    Node prev;
+    Node next;
     
     public Node(String address) {
         this.address = address;
@@ -15,8 +15,8 @@ class Node {
 
 // Classe DoublyLinkedList: Implementa uma lista duplamente encadeada para o histórico de navegação
 class DoublyLinkedList {
-    private Node head; // Referência para o primeiro nó
-    private Node tail; // Referência para o último nó
+    private Node head;
+    private Node tail;
 
     // Construtor: Inicializa uma lista vazia
     public DoublyLinkedList() {
@@ -27,9 +27,9 @@ class DoublyLinkedList {
     // Método insert: Insere um novo endereço no final do histórico
     public void insert(String address) {
         Node newNode = new Node(address);
-        if (head == null) { // Lista vazia
+        if (head == null) {
             head = tail = newNode;
-        } else { // Lista já contém elementos
+        } else {
             tail.next = newNode;
             newNode.prev = tail;
             tail = newNode;
@@ -39,29 +39,29 @@ class DoublyLinkedList {
     // Método remove: Remove um endereço específico do histórico
     public boolean remove(String address) {
         Node current = head;
-        while (current != null) { // Percorre a lista para encontrar o nó
-            if (current.address.equals(address)) { // Endereço encontrado
-                if (current.prev != null) { // Atualiza o próximo do anterior
+        while (current != null) {
+            if (current.address.equals(address)) {
+                if (current.prev != null) {
                     current.prev.next = current.next;
-                } else { // Caso seja o primeiro nó
+                } else {
                     head = current.next;
                 }
-                if (current.next != null) { // Atualiza o anterior do próximo
+                if (current.next != null) {
                     current.next.prev = current.prev;
-                } else { // Caso seja o último nó
+                } else {
                     tail = current.prev;
                 }
-                return true; // Sucesso na remoção
+                return true;
             }
-            current = current.next; // Avança para o próximo nó
+            current = current.next;
         }
-        return false; // Endereço não encontrado
+        return false;
     }
 
     // Método listAll: Exibe todos os endereços no histórico
     public void listAll() {
         Node current = head;
-        while (current != null) { // Percorre a lista e exibe os endereços
+        while (current != null) {
             System.out.println(current.address);
             current = current.next;
         }
@@ -71,9 +71,8 @@ class DoublyLinkedList {
 // Classe BrowserHistory: Classe principal para testar o histórico de navegação
 public class BrowserHistory {
     public static void main(String[] args) {
-        DoublyLinkedList history = new DoublyLinkedList(); // Cria uma lista duplamente encadeada para o histórico
+        DoublyLinkedList history = new DoublyLinkedList();
 
-        // Endereços iniciais para popular o histórico
         String[] initialAddresses = {
             "www.google.com",
             "www.facebook.com",
@@ -87,21 +86,17 @@ public class BrowserHistory {
             "www.wikipedia.org"
         };
 
-        // Adiciona os endereços iniciais ao histórico
         for (String address : initialAddresses) {
             history.insert(address);
         }
 
-        // Exibe o histórico inicial
         System.out.println("Histórico inicial:");
         history.listAll();
 
-        // Adiciona uma nova página ao histórico
         System.out.println("\nAdicionando nova página: www.example.com");
         history.insert("www.example.com");
         history.listAll();
 
-        // Remove uma página específica do histórico
         System.out.println("\nRemovendo página: www.facebook.com");
         if (history.remove("www.facebook.com")) {
             System.out.println("Página removida com sucesso.");
@@ -109,7 +104,6 @@ public class BrowserHistory {
             System.out.println("Página não encontrada.");
         }
 
-        // Exibe o histórico atualizado
         history.listAll();
     }
 }
